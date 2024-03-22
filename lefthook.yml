@@ -1,0 +1,13 @@
+pre-commit:
+ commands:
+  prettier-format:
+   run: pnpm run prettier:format
+  lint:
+   run: pnpm run lint
+
+pre-push:
+ commands:
+  prettier-format:
+    run: pnpm run prettier:format
+  lint:
+    run: pnpm run lint
