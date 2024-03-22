@@ -1,0 +1,12 @@
+pre-commit:
+ commands:
+    - echo "Running pre-commit hooks"
+    - pnpm run prettier:check
+    - pnpm run prettier:format
+    - pnpm run lint
+
+pre-push:
+ commands:
+    - echo "Running pre-push hooks"
+    - pnpm run prettier:format
+    - pnpm run lint
