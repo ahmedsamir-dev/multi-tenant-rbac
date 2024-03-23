@@ -1,4 +1,4 @@
-import express, { Application } from 'express';
+import express, { Application, query } from 'express';
 import helmet from 'helmet';
 import compression from 'compression';
 import cors from 'cors';
@@ -30,7 +30,19 @@ export default class App {
     this.express.use(helmet());
     this.express.use(cors());
     this.express.use(compression());
-    this.express.use(pinoHttp());
+    this.express.use(
+      pinoHttp({
+        quietReqLogger: true, // turn off the default logging output
+        transport: {
+          target: 'pino-http-print', // use the pino-http-print transport and its formatting output
+          options: {
+            destination: 1,
+            all: true,
+            translateTime: true,
+          },
+        },
+      }),
+    );
     this.express.use(express.json());
     this.express.use(express.urlencoded({ extended: false }));
   }
@@ -40,9 +52,12 @@ export default class App {
    * @param controllers - Array of controllers for all modules
    */
   private initialiseControllers(controllers: IController[]) {
+    logger.info('Initialising controllers...', controllers);
     controllers.forEach((controller: IController) => {
       this.express.use('/api/v1', controller.router);
     });
+
+    logger.info(this.express);
   }
 
   /**
