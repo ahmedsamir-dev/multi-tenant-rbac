@@ -2,5 +2,5 @@ build
 dist
 node_modules
 coverage
-.eslintrc.js
+.eslintrc.json
 .prettierrc.js

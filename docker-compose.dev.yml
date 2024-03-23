@@ -13,8 +13,8 @@ services:
       - .env.dev
     volumes:
       - ./src:/app/src
-      - /app/node_modules
-      - /app/.pnpm_store
+      # - /app/node_modules
+      # - /app/.pnpm_store
 
  postgres:
     image: postgres:latest
