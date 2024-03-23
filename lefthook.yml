@@ -1,9 +1,13 @@
 pre-commit:
  commands:
+  prettier-check:
+   glob: "*.{ts}"
+   run: pnpx prettier --check {staged_files}
   prettier-format:
-   run: pnpm run prettier:format && git add {{staged_files}}
-  # lint:
-  #  run: pnpm run lint
+   glob: "*.{ts}"
+   run: pnpx prettier --write {staged_files} && git add {staged_files}
+  lint:
+   run: pnpm run lint
 
 pre-push:
  commands:
