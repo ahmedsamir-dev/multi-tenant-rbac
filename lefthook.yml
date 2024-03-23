@@ -1,7 +1,7 @@
 pre-commit:
  commands:
   prettier-format:
-   run: pnpm run prettier:format
+   run: pnpm run prettier:format && git add {{staged_files}}
   # lint:
   #  run: pnpm run lint
 
