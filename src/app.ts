@@ -6,7 +6,6 @@ import pinoHttp from 'pino-http';
 import { logger } from './modules/shared/logger';
 import IController from './modules/shared/interfaces/controller.interface';
 // import errorMiddleware from '@/shared/middlewares/error.middleware'
-import PostgreConnection from './connections/postgre.connections';
 
 /**
  * App Class: Bootstrap our server and intialise all required steps to start the server
@@ -19,7 +18,6 @@ export default class App {
     this.express = express();
     this.port = port;
 
-    this.intialisePostgreConnection();
     this.initialiseMiddlewares();
     this.initialiseControllers(controllers);
     // this.intialiseErrorHandling()
@@ -54,9 +52,6 @@ export default class App {
   //   this.express.use(errorMiddleware)
   // }
 
-  private intialisePostgreConnection() {
-    PostgreConnection();
-  }
   /**
    * Start listening the express server on the predefined port
    */

@@ -12,10 +12,11 @@ dotenv.config({
 const env = envalid.cleanEnv(process.env, {
   NODE_ENV: envalid.str({ default: 'development', choices: ['development', 'production'] }),
   PORT: envalid.port({ default: 3000 }),
-  DATABASE_URL: envalid.str(),
+  POSTGRES_HOST: envalid.str(),
   POSTGRES_USER: envalid.str(),
   POSTGRES_PASSWORD: envalid.str(),
   POSTGRES_DB: envalid.str(),
+  POSTGRES_URL: envalid.str({}),
   JWT_SECRET: envalid.str({ default: 'secret' }),
 });
 
