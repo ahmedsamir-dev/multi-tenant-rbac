@@ -1,7 +1,0 @@
-{
-  "extends": "tslint:recommended",
-  "rules": {
-    "no-unused-variable": true,
-    "no-console": [true, "log", "error"]
-  }
-}

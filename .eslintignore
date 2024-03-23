@@ -2,7 +2,5 @@ build
 dist
 node_modules
 coverage
-.eslintrc.json
+.eslintrc.js
 .prettierrc.js
-lefthook.yml
-.prettierignore
