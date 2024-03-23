@@ -3,10 +3,10 @@ import { pgTable, uuid, varchar, timestamp, text, primaryKey, uniqueIndex } from
 export const tenants = pgTable('tenants', {
   id: uuid('id').defaultRandom().primaryKey(),
   name: varchar('name', { length: 200 }).notNull(),
-  description: varchar('description', { length: 200 }).notNull(),
-  createdByUserId: uuid('createdByUserId')
-    .notNull()
-    .references(() => users.id),
+  description: varchar('description', { length: 200 }),
+  // createdByUserId: uuid('createdByUserId')
+  //   .notNull()
+  //   .references(() => users.id),
   createdAt: timestamp('created_at').defaultNow().notNull(),
   updatedAt: timestamp('updated_at').defaultNow().notNull(),
 });
