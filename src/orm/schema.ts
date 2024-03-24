@@ -29,7 +29,7 @@ export const roles = pgTable(
       .notNull()
       .references(() => tenants.id),
     permissions: text('permissions').notNull().array().$type<Array<string>>(),
-    description: varchar('description', { length: 200 }).notNull(),
+    description: varchar('description', { length: 200 }),
     createdAt: timestamp('created_at').defaultNow().notNull(),
     updatedAt: timestamp('updated_at').defaultNow().notNull(),
   },
