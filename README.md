@@ -8,7 +8,8 @@ Multi Tenant Role Based Access Control in Express and Typescript
 
 Environment Setup:
 1. Clone the rope on your machine.
-2. Create a .env.prod file based on .env.example needed to setup the local services
-3. Run the below command to start the app
-
+2. Create a ```.env.prod``` file based on ```.env.example``` needed to setup the local services
+3. Run the below command to start the product ready app
+```docker-compose -f docker-compose.prod.yml up --build```
+4- if you want a development suitable environment create a ```.env.dev``` then run 
 ```docker-compose -f docker-compose.dev.yml up --build```
