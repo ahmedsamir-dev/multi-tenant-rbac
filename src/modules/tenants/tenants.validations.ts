@@ -1,5 +1,4 @@
 import zod from 'zod';
-import { zodToJsonSchema } from 'zod-to-json-schema';
 
 const createTenantSchema = {
   body: zod
@@ -11,33 +10,25 @@ const createTenantSchema = {
         })
         .min(1),
       description: zod.string().optional(),
-      createdByUserId: zod.string().min(24).optional(),
+      createdByUserId: zod.string().uuid().optional(),
     })
     .describe('Create Tenant Schema'),
 };
 
 const getTenantSchema = {
-  body: {},
-  query: {},
   params: zod
     .object({
-      id: zod.string().min(24),
+      id: zod.string().uuid(),
     })
     .describe('Get Tenant Schema'),
 };
 
 const deleteTenantSchema = {
-  body: {},
-  query: {},
   params: zod
     .object({
-      id: zod.string().min(24),
+      id: zod.string().uuid(),
     })
     .describe('Delete Tenant Schema'),
 };
-
-zodToJsonSchema(createTenantSchema.body, 'Create Tenant Schema');
-zodToJsonSchema(getTenantSchema.params, 'Get Tenant Schema');
-zodToJsonSchema(deleteTenantSchema.params, 'Delete Tenant Schema');
 
 export { createTenantSchema, getTenantSchema, deleteTenantSchema };

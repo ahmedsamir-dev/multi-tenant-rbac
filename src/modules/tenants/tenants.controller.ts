@@ -6,7 +6,9 @@ import * as TenantServices from './tenants.services';
 import * as RoleServices from '../roles/roles.services';
 import crypto from 'crypto';
 import { logger } from '../shared/logger';
-import { TENANT_OWNER_ROLE } from '../shared/constants/permissions';
+import { PERMISSIONS, TENANT_OWNER_ROLE } from '../shared/constants/permissions';
+import authenticate from '../shared/middlewares/authenticate';
+import authorize from '../shared/middlewares/authorize';
 
 export default class TenantController implements IController {
   public readonly path = '/tenants';
@@ -17,9 +19,8 @@ export default class TenantController implements IController {
   }
 
   public initialiseRoutes() {
-    this.router.get(`${this.path}/`, this.getTenants);
-    this.router.post(`${this.path}/`, validate(validationSchemas.createTenantSchema), this.createTenant);
-    this.router.route('/:id').get(this.getTenant).put(this.updateTenant).delete(this.deleteTenant);
+    this.router.get(`${this.path}/`, authenticate, authorize.check(PERMISSIONS['tenants:read']), this.getTenants);
+    this.router.post(`${this.path}/`, authenticate, validate(validationSchemas.createTenantSchema), this.createTenant);
   }
 
   public getTenants = async (req: Request, res: Response, next: NextFunction) => {
@@ -33,7 +34,8 @@ export default class TenantController implements IController {
 
   public createTenant = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      req.body.createdByUserId = crypto.randomUUID();
+      //@ts-expect-error
+      req.body.createdByUserId = req.user.id;
       const tenant = await TenantServices.createTenant(req.body);
 
       const tenantOwnerRole = await RoleServices.createRole({
@@ -45,30 +47,6 @@ export default class TenantController implements IController {
       return res.status(201).json({ tenant, tenantOwnerRole });
     } catch (error) {
       logger.error(error);
-      return res.status(500).json(error);
-    }
-  };
-
-  public getTenant = async (req: Request, res: Response, next: NextFunction) => {
-    try {
-      return res.status(200).json();
-    } catch (error) {
-      return res.status(500).json(error);
-    }
-  };
-
-  public updateTenant = async (req: Request, res: Response, next: NextFunction) => {
-    try {
-      return res.status(200).json();
-    } catch (error) {
-      return res.status(500).json(error);
-    }
-  };
-
-  public deleteTenant = async (req: Request, res: Response, next: NextFunction) => {
-    try {
-      return res.status(204).json();
-    } catch (error) {
       return res.status(500).json(error);
     }
   };

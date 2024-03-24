@@ -52,7 +52,6 @@ export default class App {
    * @param controllers - Array of controllers for all modules
    */
   private initialiseControllers(controllers: IController[]) {
-    logger.info('Initialising controllers...', controllers);
     controllers.forEach((controller: IController) => {
       this.express.use('/api/v1', controller.router);
     });
