@@ -3,8 +3,10 @@ import validate from 'express-zod-safe';
 import IController from '../shared/interfaces/controller.interface';
 import * as validationSchemas from './tenants.validations';
 import * as TenantServices from './tenants.services';
+import * as RoleServices from '../roles/roles.services';
 import crypto from 'crypto';
 import { logger } from '../shared/logger';
+import { TENANT_OWNER_ROLE } from '../shared/constants/permissions';
 
 export default class TenantController implements IController {
   public readonly path = '/tenants';
@@ -32,10 +34,17 @@ export default class TenantController implements IController {
   public createTenant = async (req: Request, res: Response, next: NextFunction) => {
     try {
       req.body.createdByUserId = crypto.randomUUID();
-      logger.info(req.body);
-      const result = await TenantServices.createTenant(req.body);
-      return res.status(201).json(result);
+      const tenant = await TenantServices.createTenant(req.body);
+
+      const tenantOwnerRole = await RoleServices.createRole({
+        tenantId: tenant.id,
+        name: TENANT_OWNER_ROLE.NAME,
+        permissions: TENANT_OWNER_ROLE.PERMISSIONS as unknown as string[],
+      });
+
+      return res.status(201).json({ tenant, tenantOwnerRole });
     } catch (error) {
+      logger.error(error);
       return res.status(500).json(error);
     }
   };
