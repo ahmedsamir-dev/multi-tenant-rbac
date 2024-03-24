@@ -17,4 +17,4 @@
 5- You can import ```thundr.client.json``` file into thunder client vscode extension to show the apis signatures and to test it 
 
 ## Technologies Used:
-- Nodejs, Expressjs, Typescript, PostgreSQL, Drizzle Orm, JWT authentication, Docker, Docker compose, Zod, bcryptjs, Prettier, Eslint, Lefthook
+- Nodejs, Expressjs, Typescript, PostgreSQL, Drizzle Orm, JWT authentication, pino, Docker, Docker compose, Zod, bcryptjs, Prettier, Eslint, Lefthook
