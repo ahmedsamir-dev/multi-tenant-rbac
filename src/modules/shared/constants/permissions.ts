@@ -4,6 +4,7 @@ export const TENANT_OWNER_PERMISSIONS = [
   'tenants:update',
   'tenants:delete',
   'tenants:users:read',
+  'tenants:roles:write',
   'tenants:users:role:read',
   'tenants:users:role:write',
   'tenants:users:role:update',
@@ -24,7 +25,7 @@ export const TENANT_OWNER_PERMISSIONS = [
   'products:any:write',
   'products:own:update',
   'products:own:delete',
-];
+] as const;
 
 export const PERMISSIONS = TENANT_OWNER_PERMISSIONS.reduce(
   (acc, permission) => {
@@ -38,4 +39,9 @@ export const PERMISSIONS = TENANT_OWNER_PERMISSIONS.reduce(
 export const TENANT_OWNER_ROLE = {
   NAME: 'TENANT_OWNER',
   PERMISSIONS: TENANT_OWNER_PERMISSIONS,
+};
+
+export const INVITED_USER_ROLE = {
+  NAME: 'INVITED_USER',
+  PERMISSIONS: [],
 };

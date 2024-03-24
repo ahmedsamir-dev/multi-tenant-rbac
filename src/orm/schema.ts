@@ -4,9 +4,9 @@ export const tenants = pgTable('tenants', {
   id: uuid('id').defaultRandom().primaryKey(),
   name: varchar('name', { length: 200 }).notNull(),
   description: varchar('description', { length: 200 }),
-  // createdByUserId: uuid('createdByUserId')
-  //   .notNull()
-  //   .references(() => users.id),
+  createdByUserId: uuid('createdByUserId')
+    .notNull()
+    .references(() => users.id),
   createdAt: timestamp('created_at').defaultNow().notNull(),
   updatedAt: timestamp('updated_at').defaultNow().notNull(),
 });
@@ -16,6 +16,7 @@ export const users = pgTable('users', {
   name: varchar('name', { length: 200 }).notNull(),
   email: varchar('email', { length: 200 }).notNull().unique(),
   password: varchar('password', { length: 100 }).notNull(),
+  tenantId: uuid('tenantId').references(() => tenants.id),
   createdAt: timestamp('created_at').defaultNow().notNull(),
   updatedAt: timestamp('updated_at').defaultNow().notNull(),
 });
