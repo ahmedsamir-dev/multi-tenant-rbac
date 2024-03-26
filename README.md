@@ -18,3 +18,5 @@
 
 ## Technologies Used:
 - Nodejs, Expressjs, Typescript, PostgreSQL, Drizzle Orm, JWT authentication, pino, Docker, Docker compose, Zod, bcryptjs, Prettier, Eslint, Lefthook
+
+[Project Documentation](https://ahmed-samir.gitbook.io/multi-tenant-rbac-project-documentation/)
